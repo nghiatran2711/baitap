@@ -22,9 +22,15 @@ class PostsController extends BaseController
     $data = array('post' => $post);
     $this->render('show', $data);
   }
-  public function createPost($data)
+  public function createPost()
   {
+    $data = [];
+    $data['title'] = $_POST['title'];
+    $data['content'] = $_POST['content'];
+    
     $post = Post::create($data);
-    return $post;
+    if($post) {
+      echo "Add post successfully";
+    }
   }
 }

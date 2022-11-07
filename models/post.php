@@ -1,6 +1,5 @@
 
 <?php
-require_once('../../connection.php');
 class Post
 {
   public $id;
@@ -40,10 +39,10 @@ class Post
   }
   static function create($data){
    $db = DB::getInstance();
-   $stmt = $conn->prepare("INSERT INTO posts (title, content) VALUES ( ?, ?)");
-   $stmt->bind_param("ss", $title, $content);
-   $title = $data['title']; 
-   $content = $data['content'];
+   $stmt = $db->prepare("INSERT INTO posts (title, content) VALUES (:title, :content)");
+   $stmt->bindParam(':title', $data['title']);
+   $stmt->bindParam(':content',$data['content']);
+
    return $stmt->execute(); 
   }
 
